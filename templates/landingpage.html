@@ -1,0 +1,49 @@
+
+{% extends "hero.html" %}
+
+{% block quote %}	
+
+		<h1>Welcome!</h1> <h2>PlacementQuestions.me</h2> <h4>
+		<p>Prepare for your job interview with our huge collection of interview questions! </p></h4> 
+		<p><a class="btn btn-primary btn-large pull-right" href="/view-questions"> View now &raquo; </a></p>
+		<br>
+
+{% endblock %}
+
+
+{% block content %}
+
+	<h3><p><br /><br />Login/Sign up with us to access additional features &raquo;</p></h3>
+
+{%endblock%}
+
+
+{%block login%}
+
+	<form class ="well" action="/login" method="post">
+		{% for message in messages %}
+		<h5>{{message}}</h5>
+		{%endfor%}<br>
+		Username: <input type = "text" name ="username"><br>
+		Password: <input type = "password" name="password"><br>
+		<input type = "submit" class="btn btn-primary" value="Login"> 
+		
+		<a class="btn btn-inverse" href="/register">Register</a>
+		<br>
+		
+	</form>
+
+{%endblock%}
+
+{% block top %}
+		<a class="brand" href="#">PlacementQuestions.me</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="/home">Home</a></li>
+              <li><a href="#contact">Contact</a></li>
+            
+            </ul>
+          </div>
+          
+{% endblock %}          
+		

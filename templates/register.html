@@ -1,0 +1,36 @@
+{% extends "fluid.html" %}
+
+{% block top %}
+		<a class="brand" href="#">PlacementQuestions.me</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="/home">Home</a></li>
+              <li><a href="#contact">Contact</a></li>
+            
+            </ul>
+          </div>
+          
+{% endblock %}    
+
+
+{% block content %}
+
+<div class="row"><br><br><br>
+    <div class="span5 offset4">
+    	{% for message in messages %}
+    	<h3>{{message}}</h3>
+		{% endfor %}
+	<form class="well form-vertical" action=""  method="post">
+		<fieldset>
+		Enter First Name: &nbsp; &nbsp;  <input type="text" name="firstname"><br>
+		Enter Last Name:  &nbsp; &nbsp;   <input type="text" name="lastname"><br>
+		Enter username:  &nbsp; &nbsp; &nbsp;  <input type="text" name="username"><br>
+		Enter Password:  &nbsp; &nbsp; &nbsp; <input type="password" name="password"><br>
+		Re-enter Password:  &nbsp; <input type="password" name="rpassword"><br>
+		<input class="btn btn-success" type="submit" value="Register">
+		</fieldset>
+	</form>
+	</div>	
+</div>
+	
+{%endblock%}

@@ -1,0 +1,42 @@
+{% extends "fluid.html" %}
+		
+{% block top %}
+
+		
+		<a class="brand" href="#">PlacementQuestions.me</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="/create-questions">Create Question</a></li>
+              <li><a href="add-category">Create Category</a></li>
+              <li><a href="/view-questions">View Questions</a></li>
+              {% if user %}
+              <li class="active pull-right"><a>Welcome, {{user}}</a></li>
+              <li class="active"><a href="/logout">Logout</a></li>
+              {%endif%}
+            </ul>
+          </div>
+          
+{% endblock %}       
+	
+{%block content%}
+	
+	<br>
+	<br>
+	
+	<div class="row">
+    <div class="span6 offset5">
+    	{{message}}<br>
+		<form action="/create-questions" method="post">
+		<h3>Which Category should the Question belong to?</h3><br>
+		<select name=tag>
+		{% for tag  in tags %}
+			<option>{{tag.tag}}</option>
+		{%endfor%}
+		</select><br><br><h3>Enter Your Question:</h3>
+		<textarea name="question" rows="3" cols="200"></textarea><br><br>
+		<input class = "btn btn-danger" type="submit" value="Submit this question">
+	</form>
+	</div>
+	</div>
+	
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "fluid.html" %}
+		
+{% block top %}
+
+		
+		<a class="brand" href="#">PlacementQuestions.me</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="/create-questions">Create Question</a></li>
+              <li><a href="add-category">Create Category</a></li>
+              <li><a href="/view-questions">View Questions</a></li>
+              {% if user %}
+              <li class="active pull-right"><a>Welcome, {{user}}</a></li>
+              <li class="active"><a href="/logout">Logout</a></li>
+              {%endif%}
+            </ul>
+          </div>
+          
+{% endblock %}          
+		
+		
+{%block content%}
+<div class="row"><br><br><br>
+    <div class="span6 offset5">
+		<h1>Welcome! {{user}}</h1>
+		<br> <h3>Use the top navigation bar to access features</h3>
+	</div>
+</div>
+{% endblock %}

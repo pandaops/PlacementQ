@@ -1,0 +1,45 @@
+{% extends "fluid.html" %}
+		
+{% block top %}
+
+		
+		<a class="brand" href="#">PlacementQuestions.me</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li><a href="/create-questions">Create Question</a></li>
+              <li class="active"><a href="add-category">Create Category</a></li>
+              <li><a href="/view-questions">View Questions</a></li>
+              {% if user %}
+              <li class="active pull-right"><a>Welcome, {{user}}</a></li>
+              <li class="active"><a href="/logout">Logout</a></li>
+              {%endif%}
+            </ul>
+          </div>
+          
+{% endblock %}  
+
+{% block content %}	
+<div class="row"><br><br><br>
+
+	
+	
+    <div class="span3 offset4"><br><br></br>
+    	{{message}}<br><br>
+		<form action=""  method="post">
+		<input type="text" name="newtag"><br>
+		<input class="btn btn-danger" type="submit" value="Create new tag!">
+		</form>
+	</div>
+	
+	<div class="span3 offset3">
+	<h2>
+		Current Tags: <br><br>
+	</h2>
+	{% for tag in tags %}
+	<h5>{{tag.tag}}</h5> <br>
+	{% endfor %}
+	</div>
+	
+</div>
+{% endblock %}
+

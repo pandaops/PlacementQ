@@ -1,0 +1,48 @@
+{% extends "fluid.html" %}
+		
+{% block top %}
+
+		
+		<a class="brand" href="#">PlacementQuestions.me</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li><a href="/create-questions">Create Question</a></li>
+              <li><a href="add-category">Create Category</a></li>
+              <li class = "active"><a href="/view-questions">View Questions</a></li>
+              {% if user %}
+              <li class="active pull-right"><a>Welcome, {{user}}</a></li>
+              <li class="active"><a href="/logout">Logout</a></li>
+              {%endif%}
+            </ul>
+          </div>
+          
+{% endblock %}          
+		
+{% block content %}	
+<div class="row">
+    <div class="span6 offset5">
+    	{{message}}<br>
+	<h2>Select Category:</h2> <br>
+	<form class="form-horizontal" action="" method ="post">
+		<select name="tag">
+		{% for tag in tags %}
+			<option>{{tag.tag}}</option>
+		{% endfor %}
+		</select>
+		<input class="btn btn-primary" type="submit" value="View questions!">
+	</form>
+
+	{% for question in questions %}
+		<h4><br>{{question.content}}</h4>	
+	{% endfor %}
+	{% if not status %}<br>
+	You can only view 10 questions per category. To view more please <a class ="btn btn-warning" type="button" href="/">Login</a>
+	<br><br><br>
+	{%endif%}
+	</div>
+</div>
+
+
+{% endblock %}
+
+</html>
