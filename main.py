@@ -9,20 +9,7 @@ def loggedin():
     if current_user is not None:
         return True
     return False
-
-class Question(db.Model):
-    content=db.StringProperty(multiline=True)
-    tags=db.StringProperty()
-
-class Tag(db.Model):
-    tag=db.StringProperty()
-
-class User(db.Model):
-    first_name = db.StringProperty()
-    last_name = db.StringProperty()
-    username = db.StringProperty()
-    password = db.StringProperty()
-
+    
 class Login(webapp2.RequestHandler):
     def get(self):
         logged_in=loggedin()
@@ -81,46 +68,7 @@ class Logout(webapp2.RequestHandler):
         else:
             self.redirect('/')
                 
-def authenticate(*args,**kwargs):
-    username=kwargs.get('username')
-    password=kwargs.get('password')
-    rpassword=kwargs.get('rpassword')
-    firstname=kwargs.get('firstname')
-    lastname=kwargs.get('lastname')
-    global global_messages
-    global_messages =[]
-    if password != rpassword:
-        global_messages.append("Passwords don't match!")
-        allowed =False
-        return allowed
-    if firstname=='':
-        allowed = False
-        global_messages.append("Enter a valid First Name")
-        return allowed
-    if lastname=='':
-        allowed = False
-        global_messages.append("Enter a valid Last Name")
-        return allowed
-    if username=='':
-        allowed = False
-        global_messages.append("Enter a valid Last Name")
-        return allowed
-    q=User.all()
-    q.filter("username =", username)
-    q=q.get()
-    try:
-        if q.username:
-            allowed = False
-            global_messages.append("Username already exists!")
-            return allowed
-    except:
-        pass
-    allowed = True
-    return allowed
-        
 
-
-        
 
 class MainPage(webapp2.RequestHandler):
     def get(self):
