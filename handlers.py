@@ -1,69 +1,66 @@
-import email.utils
-import hmac
-import haslhib
-import Cookie
-import time
+from google.appengine.ext.webapp import template
+import webapp2
+from google.appengine.ext.webapp.util import run_wsgi_app
+from google.appengine.api import users
+from google.appengine.ext import db
+import hashlib
+from utils import *
 
-def get_current_user(self):
-    if not hasattr(_current_user, selfobject):
-        self._current_user=None
-        userid = parse_cookie(self)
-        if user_id:
-            self._current_user = User.get_by_key_name(user_id)
-    return self._current_user        
+
+def login(webapp2.RequestHandler):
+    def get(self):
+        user=get_current_user(self)
+        if user:
+            self.redirect('/home')
+        self.redirect('/')
+        
             
+    def post(self):
+        user=get_current_user(self)
+        if not user:
+            username=self.request.get('username')
+            password=self.request.get('password')
+            user = UserProfile.all()
+            user.filter("username =", username)
+            user.get()
+            hash_password=hashlib.new()
+            if hash_password.update(password).hexdigest() == user.password:
+                set_cookie(self.response, "placementq", str(user.uid), expires=time.time() + 30 * 86400)
+                self.redirect('/home')
+                
+        else:
+            self.redirect('/home')               
+            
+def logout(webapp2.RequestHandler):
+    def get(self):
+        set_cookie(self.response, "placementq", "", expires=time.time() - 30 * 86400)
+        self.redirect('/')
         
-def parse_cookie(self):
-    cookie = self.request.cookies.get('placementq')
-    values = cookie.split('|')
-    if len(values)!=3:
-        return None
-    timestamp = int(parts[1])
-    if cookie_signature(values[0], values[2]) == values[1]): 
-        if timestamp < time.time() - 30 * 86400:
-            return None
-        try:
-            return values[0]
-        except:
-            return None
-    return None           
-    
-    
-def cookie_signature(*_args):
-    salthash = hmac.new('salt')
-    for arg in _args:
-        salthash.update(arg)
         
-    return salthash.hexdigest()     
+def register(webapp2.RequestHandler):
+    def get(self):
+        user=get_current_user(self)
+        if user:
+            self.redirect('/home')    
+        self.response.out.write(template.render("templates/register.html", None))
     
-    
- 
- 
-#name is placementq and value is the UID 
-def set_cookie(response, name, value, domain=None, path="/", expires=None):
-    timestamp=str(int(time.time()))
-    uid = value
-    signature = cookie_signature(uid,timestamp)
-    cookie = Cookie.BaseCookie()
-    cookie[name]="|".join([uid,signature,timestamp])
-    cookie[name]["path"]=path
-    if domain:
-        cookie[name]["domain"]=domain
-    if expires:
-        cookie[name]["expires"]= email.utils.formatdate(expires,localtime=False, usegmt=True)
-    response.headers._headers.append(("Set-Cookie",cookie.output()[12:]))
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    def post(self):
+        user=get_current_user(self)
+        if not user:    
+            success = handle_registration(self)
+            if success:
+                self.redirect('/home')
+            else:
+                self.redirect('/')
+        else:
+            self.redirect('/home')   
+            
+
+
+
         
+
+                
+         
+            
+    

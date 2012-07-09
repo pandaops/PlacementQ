@@ -16,4 +16,9 @@ class User(db.Model):
     username = db.StringProperty()
     password = db.StringProperty()
     
+class SessionsTable(db.Model):
+    userid = db.StringProperty()
+    
+    #not using sessions tables as of yet.
+    
 
