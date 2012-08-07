@@ -6,13 +6,15 @@ from handlers import *
 from utils import *
 from models import *
 
+#not using sessions tables as of yet.
 
 
 class MainPage(webapp2.RequestHandler):
     def get(self):
         user=get_current_user(self)
         if user:
-            self.redirect('/home') 
+            self.redirect("/home")
+        LOGIN_URL = users.create_login_url("/home")
         self.response.out.write(template.render("templates/landingpage.html",locals()))
         
 class Home(webapp2.RequestHandler):
@@ -106,6 +108,9 @@ class CreateQuestion(webapp2.RequestHandler):
         else:
             self.redirect('/')
         
+class Logout(webapp2.RequestHandler):
+    def get(self):   
+        self.redirect(users.create_logout_url("/"))
 
 app = webapp2.WSGIApplication([('/', MainPage),('/home',Home),
                               ('/view-questions', ViewQuestions),('/create-questions', CreateQuestion),('/add-category',CreateCategory),('/login',Login),

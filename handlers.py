@@ -6,8 +6,9 @@ from google.appengine.ext import db
 import hashlib
 from utils import *
 
+#not using sessions tables as of yet.
 
-def login(webapp2.RequestHandler):
+class Login(webapp2.RequestHandler):
     def get(self):
         user=get_current_user(self)
         if user:
@@ -31,13 +32,12 @@ def login(webapp2.RequestHandler):
         else:
             self.redirect('/home')               
             
-def logout(webapp2.RequestHandler):
-    def get(self):
-        set_cookie(self.response, "placementq", "", expires=time.time() - 30 * 86400)
-        self.redirect('/')
+
+        '''set_cookie(self.response, "placementq", "", expires=time.time() - 30 * 86400)
+        self.redirect('/')'''
         
         
-def register(webapp2.RequestHandler):
+class Register(webapp2.RequestHandler):
     def get(self):
         user=get_current_user(self)
         if user:

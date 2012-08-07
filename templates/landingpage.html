@@ -20,7 +20,7 @@
 
 {%block login%}
 
-	<form class ="well" action="/login" method="post">
+	<!--<form class ="well" action="/login" method="post">
 		{% for message in messages %}
 		<h5>{{message}}</h5>
 		{%endfor%}<br>
@@ -31,7 +31,8 @@
 		<a class="btn btn-inverse" href="/register">Register</a>
 		<br>
 		
-	</form>
+	</form>-->
+	<a class="btn btn-inverse" href="{{LOGIN_URL}}">Login</a>
 
 {%endblock%}
 
